@@ -1,0 +1,83 @@
+---
+description: Initialize and maintain Ken-style Chinese office AI project workspaces.
+alwaysApply: true
+---
+
+# Ken Project Setup Rule
+
+This repository provides the `ken-project-setup` Skill. Treat `SKILL.md` as the source of truth.
+
+## When To Apply
+
+Apply this rule when the user asks to:
+
+- initialize a Codex / AI project workspace,
+- create `raw / docs / output / memory-bank / AGENTS.md`,
+- set up a Chinese office document project,
+- prepare a project for Word, Excel, PPT, or PDF deliverables,
+- add anti-hallucination or data-source rules to a project.
+
+## Default Structure
+
+Create or preserve this structure:
+
+```text
+<project>/
+├─ AGENTS.md
+├─ raw/
+├─ docs/
+│  ├─ source-notes.md
+│  └─ questions.md
+├─ output/
+└─ memory-bank/
+   └─ PROJECT-MEMORY.md
+```
+
+## Preferred Command
+
+Use the initializer script when possible:
+
+```bash
+python scripts/init_ken_project.py <target-directory>
+```
+
+Use `--force` only after explicit user confirmation.
+
+## Safety Rules
+
+- Preserve existing user files.
+- Do not overwrite template files unless the user explicitly asks.
+- Treat `raw/` as read-only original material.
+- Put final Word, Excel, PPT, PDF, screenshots, and previews in `output/`.
+- Put process notes, source notes, drafts, and open questions in `docs/`.
+- Put durable, non-sensitive project context in `memory-bank/`.
+- Never store secrets, API keys, passwords, credentials, or private customer data in `memory-bank/`.
+
+## Data And Fact Rules
+
+- Prefer facts and data from `raw/`, `docs/`, and `memory-bank/`.
+- External sources must include source name, link or file name, and citation date.
+- Do not fabricate customers, amounts, growth rates, market data, citations, or conclusions.
+- If information is missing, write it to `docs/questions.md` instead of guessing.
+- Key data in Word, Excel, PPT, and PDF outputs must cite its source.
+
+## Office Skill Routing
+
+- Word / DOCX: use `minimax-docx`.
+- Excel / XLSX: use `minimax-xlsx`.
+- PPT / PPTX: use `ppt-master`.
+- Formal PDF reports: use `minimax-pdf`.
+
+## Validation
+
+After editing this repository:
+
+```bash
+python -m py_compile scripts/init_ken_project.py
+```
+
+If available, also run the Skill validator:
+
+```bash
+python <skill-creator>/scripts/quick_validate.py .
+```
