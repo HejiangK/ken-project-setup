@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ken Project Setup"
+  short_description: "Initialize a Ken-style AI office project workspace."
+  default_prompt: "Use $ken-project-setup to initialize a Chinese office AI workspace with raw, docs, output, memory-bank, and AGENTS.md."
