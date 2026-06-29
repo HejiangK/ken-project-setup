@@ -12,6 +12,10 @@ The default structure is:
 ```text
 <project>/
 ├─ AGENTS.md
+├─ CLAUDE.md
+├─ .cursor/
+│  └─ rules/
+│     └─ ken-project-setup.mdc
 ├─ raw/
 ├─ docs/
 │  ├─ source-notes.md
@@ -49,6 +53,10 @@ The default structure is:
 - `数据与事实规则`
 - `Skill 使用规则`
 - `工作规则`
+
+`CLAUDE.md` must mirror the same project rules for Claude Code compatibility.
+
+`.cursor/rules/ken-project-setup.mdc` must mirror the same project rules for Cursor compatibility and use `alwaysApply: true`.
 
 The data rules are mandatory:
 

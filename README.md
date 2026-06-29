@@ -8,7 +8,7 @@
 
 - 第一次用 Codex 做办公项目。
 - 想让 Codex 生成 Word、Excel、PPT、PDF 等文件。
-- 想给项目加上 `raw / docs / output / memory-bank / AGENTS.md` 基础结构。
+- 想给项目加上 `raw / docs / output / memory-bank / AGENTS.md / CLAUDE.md / .cursor/rules` 基础结构。
 - 想在项目规则里加入数据来源、防幻觉、外部引用说明等要求。
 
 ## 创建的项目结构
@@ -16,6 +16,10 @@
 ```text
 <project>/
 ├─ AGENTS.md
+├─ CLAUDE.md
+├─ .cursor/
+│  └─ rules/
+│     └─ ken-project-setup.mdc
 ├─ raw/
 ├─ docs/
 │  ├─ source-notes.md
@@ -41,6 +45,11 @@
 - PPT 使用 `ppt-master`。
 - PDF 使用 `minimax-pdf`。
 
+同时会生成：
+
+- `CLAUDE.md`：让 Claude Code 读取同一套项目规则。
+- `.cursor/rules/ken-project-setup.mdc`：让 Cursor 自动应用同一套项目规则。
+
 ## 在 Codex 中使用
 
 安装或导入这个 Skill 后，可以这样说：
@@ -52,7 +61,7 @@
 也可以在当前目录初始化：
 
 ```text
-用 $ken-project-setup 在当前目录创建 raw、docs、output、memory-bank 和 AGENTS.md。
+用 $ken-project-setup 在当前目录创建 raw、docs、output、memory-bank、AGENTS.md、CLAUDE.md 和 Cursor rules。
 ```
 
 ## 直接运行脚本

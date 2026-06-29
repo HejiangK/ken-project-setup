@@ -9,7 +9,7 @@ from pathlib import Path
 from textwrap import dedent
 
 
-DIRS = ["raw", "docs", "output", "memory-bank"]
+DIRS = ["raw", "docs", "output", "memory-bank", ".cursor/rules"]
 
 
 def write_text(path: Path, content: str, force: bool, created: list[str], skipped: list[str]) -> None:
@@ -72,6 +72,96 @@ def agents_md(project_name: str) -> str:
         4. 确认数据来源后，再生成正式交付物。
         5. 最终文件必须放入 `output/`。
         6. 交付前检查文件是否存在、格式是否正确、内容是否符合项目规则。
+        """
+    )
+
+
+def claude_md(project_name: str) -> str:
+    return dedent(
+        f"""\
+        # CLAUDE.md
+
+        本项目是一个基础办公 AI 工作区：{project_name}
+
+        Claude Code 在处理本项目时，请遵守本文件和 `AGENTS.md`。如果两者有冲突，以 `AGENTS.md` 为准。
+
+        ## 项目结构
+
+        ```text
+        {project_name}/
+        ├─ AGENTS.md
+        ├─ CLAUDE.md
+        ├─ .cursor/rules/ken-project-setup.mdc
+        ├─ raw/
+        ├─ docs/
+        │  ├─ source-notes.md
+        │  └─ questions.md
+        ├─ output/
+        └─ memory-bank/
+           └─ PROJECT-MEMORY.md
+        ```
+
+        ## 工作规则
+
+        - 文档内容请以中文为主。
+        - `raw/` 是原始材料目录，只读，不要覆盖、改名或移动。
+        - `docs/` 放过程文档、数据来源、分析说明和问题清单。
+        - `output/` 放最终 Word、Excel、PPT、PDF、截图和预览。
+        - `memory-bank/` 只记录长期有效的项目背景和偏好，不保存密钥、账号或客户隐私。
+
+        ## 数据与事实规则
+
+        - 所有数据、事实、结论，必须优先来自本项目内的 `raw/`、`docs/` 或 `memory-bank/`。
+        - 如果使用外部数据、网页、报告或公开资料，必须写清来源名称、链接或文件名、引用日期。
+        - 不允许编造客户、金额、增长率、市场数据、引用来源或不存在的结论。
+        - 如果信息不足，先写入 `docs/questions.md`，不要硬编。
+        - 生成正式文件时，关键数据必须标注来源。
+
+        ## 办公产物路由
+
+        - Word / DOCX：优先使用 `minimax-docx`。
+        - Excel / XLSX：优先使用 `minimax-xlsx`。
+        - PPT / PPTX：使用 `ppt-master`。
+        - 正式 PDF 报告：优先使用 `minimax-pdf`。
+        """
+    )
+
+
+def cursor_rule(project_name: str) -> str:
+    return dedent(
+        f"""\
+        ---
+        description: Ken-style Chinese office AI workspace rules for {project_name}.
+        alwaysApply: true
+        ---
+
+        # Ken Project Setup
+
+        Apply these rules when working in this project.
+
+        ## Project Structure
+
+        - `raw/`: original materials. Treat as read-only unless the user explicitly asks.
+        - `docs/`: process notes, source notes, analysis drafts, and open questions.
+        - `output/`: final Word, Excel, PPT, PDF, screenshots, and previews.
+        - `memory-bank/`: durable non-sensitive project background and preferences.
+        - `AGENTS.md`: primary project rules.
+        - `CLAUDE.md`: Claude Code compatibility rules.
+
+        ## Data And Fact Rules
+
+        - Prefer facts and data from `raw/`, `docs/`, and `memory-bank/`.
+        - External sources must include source name, link or file name, and citation date.
+        - Do not fabricate customers, amounts, growth rates, market data, citations, or conclusions.
+        - If information is missing, write it to `docs/questions.md` instead of guessing.
+        - Key data in Word, Excel, PPT, and PDF outputs must cite its source.
+
+        ## Office Skill Routing
+
+        - Word / DOCX: use `minimax-docx`.
+        - Excel / XLSX: use `minimax-xlsx`.
+        - PPT / PPTX: use `ppt-master`.
+        - Formal PDF reports: use `minimax-pdf`.
         """
     )
 
@@ -163,6 +253,8 @@ def init_project(target: Path, force: bool) -> tuple[list[str], list[str]]:
     project_name = target.name or "ken-office-project"
 
     write_text(target / "AGENTS.md", agents_md(project_name), force, created, skipped)
+    write_text(target / "CLAUDE.md", claude_md(project_name), force, created, skipped)
+    write_text(target / ".cursor" / "rules" / "ken-project-setup.mdc", cursor_rule(project_name), force, created, skipped)
     write_text(target / "docs" / "source-notes.md", source_notes(project_name), force, created, skipped)
     write_text(target / "docs" / "questions.md", questions_md(project_name), force, created, skipped)
     write_text(target / "memory-bank" / "PROJECT-MEMORY.md", project_memory(project_name), force, created, skipped)

@@ -12,7 +12,7 @@ This repository provides the `ken-project-setup` Skill. Treat `SKILL.md` as the 
 Apply this rule when the user asks to:
 
 - initialize a Codex / AI project workspace,
-- create `raw / docs / output / memory-bank / AGENTS.md`,
+- create `raw / docs / output / memory-bank / AGENTS.md / CLAUDE.md / .cursor/rules`,
 - set up a Chinese office document project,
 - prepare a project for Word, Excel, PPT, or PDF deliverables,
 - add anti-hallucination or data-source rules to a project.
@@ -24,6 +24,8 @@ Create or preserve this structure:
 ```text
 <project>/
 ├─ AGENTS.md
+├─ CLAUDE.md
+├─ .cursor/rules/ken-project-setup.mdc
 ├─ raw/
 ├─ docs/
 │  ├─ source-notes.md
@@ -51,6 +53,8 @@ Use `--force` only after explicit user confirmation.
 - Put final Word, Excel, PPT, PDF, screenshots, and previews in `output/`.
 - Put process notes, source notes, drafts, and open questions in `docs/`.
 - Put durable, non-sensitive project context in `memory-bank/`.
+- Generate `CLAUDE.md` for Claude Code compatibility.
+- Generate `.cursor/rules/ken-project-setup.mdc` for Cursor compatibility.
 - Never store secrets, API keys, passwords, credentials, or private customer data in `memory-bank/`.
 
 ## Data And Fact Rules

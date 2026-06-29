@@ -31,6 +31,8 @@ When asked to initialize a project:
 ```text
 <project>/
 ├─ AGENTS.md
+├─ CLAUDE.md
+├─ .cursor/rules/ken-project-setup.mdc
 ├─ raw/
 ├─ docs/
 │  ├─ source-notes.md
@@ -48,6 +50,8 @@ Generated projects must keep these rules:
 - `docs/` stores process notes, source notes, drafts, and open questions.
 - `output/` stores final Word, Excel, PPT, PDF, screenshots, and previews.
 - `memory-bank/` stores durable project background and preferences only.
+- `CLAUDE.md` mirrors the same rules for Claude Code.
+- `.cursor/rules/ken-project-setup.mdc` mirrors the same rules for Cursor.
 - Do not store secrets, API keys, credentials, or private customer data in `memory-bank/`.
 - Data, facts, and conclusions must come from the project first.
 - External sources must include source name, link or file name, and citation date.
